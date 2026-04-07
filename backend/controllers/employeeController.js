@@ -24,8 +24,14 @@ const setTaskStatus=async(req,res)=>{
     })
     res.status(201).send(task,{msg:"Report Sent!"})
 }
+const showCompletedTask = async (req, res) => {
+    const { id } = req.query;
+    const task = await TaskModel.find({ $and: [{ empid: id }, { tasksend: true }] });
+    res.status(200).send(task);
+}
 module.exports={
     empLogin,
     getempTask,
-    setTaskStatus
+    setTaskStatus,
+    showCompletedTask
 }

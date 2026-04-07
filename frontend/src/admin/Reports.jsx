@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { ToastContainer, toast } from 'react-toastify';
 const Reports = () => {
+    const [search, setSearch] = useState("");
     const [mydata, setMydata] = useState([]);
     const loadData = async () => {
         try {
@@ -21,12 +22,12 @@ const Reports = () => {
     const taskReassign = async (id) => {
         try {
             let api = `${import.meta.env.VITE_BACKEND_URL}/admin/taskreassign/?tid=${id}`;
-            const response =await axios.post(api);
+            const response = await axios.post(api);
             console.log(response.data);
             toast.success(response.data.msg || "Task Reassigned");
         } catch (error) {
             console.log(error)
-            toast.error(response.data.msg || "Something went Wrong");
+            toast.error(error.response.data.msg || "Something went Wrong");
         }
     }
     let sno = 0;
